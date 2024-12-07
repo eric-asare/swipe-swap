@@ -1,25 +1,27 @@
 // server.js
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = 5020;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/mern_crud_blog", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const mongoURI = process.env.MONGO_URI;
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => {
-  console.log("Connected to MongoDB");
-});
+// Connect to MongoDB
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Successfully connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error.message);
+    process.exit(1);
+  });
 
 // Routes for Users
 app.get("/api/users", (req, res) => {
@@ -191,8 +193,8 @@ const Product = mongoose.model("Product", productSchema);
 
 // Add routes for CRUD operations for users and products here
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
 
 app.use(
@@ -200,3 +202,5 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+
+console.log("MongoDB URI:", mongoURI);

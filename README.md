@@ -1,5 +1,12 @@
 # Getting Started with Create React App
 
+1. in root: npm install
+2. in client: npm install
+
+3. in first terminal mongod
+4. in second terminal node server.js
+5. in third terminal npm start
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
