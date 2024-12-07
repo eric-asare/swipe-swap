@@ -3,12 +3,12 @@
 # dependencies
 node_modules/
 
-client/node_modules/
+frontend/node_modules/
 
 
 *.log
 
-client/build
+frontend/build
 
 /.pnp
 .pnp.js
